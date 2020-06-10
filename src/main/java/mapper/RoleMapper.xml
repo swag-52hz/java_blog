@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RoleMapper">
+
+    <insert id="insert">
+        <selectKey resultType="integer" order="BEFORE" keyProperty="id">
+            select SEQ_T_ROLE.nextval from dual
+        </selectKey>
+        insert into T_ROLE (id, ROLENAME, EXPLAIN, STATUS, OPERATOR)
+        values (#{id},#{roleName}, #{explain}, #{status}, #{operator})
+    </insert>
+    <update id="update">
+        update T_ROLE set ROLENAME=#{roleName},explain=#{explain},status=#{status},operator=#{operator},updatetime=#{updateTime} where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from T_ROLE where id=#{id}
+    </delete>
+    <select id="selectAll" resultType="entity.Role">
+        select * from T_ROLE
+    </select>
+    <select id="selectById" resultType="entity.Role">
+        select * from T_ROLE where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.AdminMapper">
+    <insert id="insert">
+        <selectKey resultType="integer" keyProperty="id" order="BEFORE">
+            select SEQ_T_ADMIN.nextval from dual
+        </selectKey>
+        insert into T_ADMIN (id, account, password, name, phone, email,
+        status, sex, roleid, operator)
+        values (#{id}, #{account}, #{password}, #{name}, #{phone}, #{email},
+        #{status}, #{sex}, #{roleid}, #{operator})
+    </insert>
+    <update id="update">
+        update T_ADMIN account=#{account}, name=#{name}, phone=#{phone}, email=#{email},
+        status=#{status}, sex=#{sex}, roleid=#{roleid}, operator=#{operator} where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from T_ADMIN where id=#{id}
+    </delete>
+    <select id="selectAll" resultType="entity.Admin">
+        select * from T_ADMIN
+    </select>
+    <select id="selectByAccount" resultType="entity.Admin">
+        select * from T_ADMIN where ACCOUNT=#{account}
+    </select>
+    <select id="selectById" resultType="entity.Admin">
+        select * from T_ADMIN where id=#{id}
+    </select>
+    <select id="selectByMap" resultMap="adminMap">
+        select t1.*,t2.account opAccount from T_ADMIN t1 left join T_ADMIN t2 on t1.OPERATOR=t2.id
+        <where>
+            <if test="account!=null and account!=''">
+                t1.account=#{account}
+            </if>
+            <if test="name!=null and name!=''">
+                <bind name="nameLike" value="'%'+name+'%'"></bind>
+                and t1.name like #{nameLike}
+            </if>
+            <if test="status!=null and status!=''">
+                and t1.status=#{status}
+            </if>
+        </where>
+    </select>
+    <!--Admin与Role以及Operator之间的关联查询-->
+    <resultMap id="adminMap" type="entity.Admin">
+        <id column="id" property="id" jdbcType="DECIMAL"></id>
+        <result column="name" property="name"></result>
+        <result column="account" property="account"></result>
+        <result column="password" property="password"></result>
+        <result column="phone" property="phone"></result>
+        <result column="email" property="email"></result>
+        <result column="status" property="status"></result>
+        <result column="sex" property="sex"></result>
+        <result column="operator" property="operator"></result>
+        <result column="roleid" property="roleid"></result>
+        <!--
+            property配置属性
+            column配置需要传递到另一个查询的列
+            select配置关联查询
+            最终会将column列的值传入到select查询中，并将结果赋值给property属性
+        -->
+        <association property="role" column="roleid"
+        select="mapper.RoleMapper.selectById">
+        </association>
+        <!--通过表连接查询对应的数据，相当于配置ResultMap-->
+        <association property="runner" javaType="entity.Admin">
+            <id column="operator" property="id"></id>
+            <result column="opAccount" property="account"></result>
+        </association>
+    </resultMap>
+</mapper>
