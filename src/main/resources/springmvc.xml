@@ -29,7 +29,11 @@
     </bean>
     <!--开启默认servlet,用以处理静态资源文件-->
     <mvc:default-servlet-handler/>
-   
+
+    <!--资源映射，将请求地址映射到某个目录或具体的磁盘路径下-->
+    <mvc:resources mapping="/head/**" location="file:F:/headpic/"></mvc:resources>
+
+    <mvc:resources mapping="/img/**" location="/WEB-INF/img/"></mvc:resources>
 
     <!--配置注解式AOP支持 声明使用cglib动态代理-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>

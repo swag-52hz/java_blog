@@ -3,6 +3,7 @@ package service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import entity.Admin;
+import entity.LayRequest;
 import mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public PageInfo<Admin> selectByPage(Map<String, Object> map) {
         int pageNum = map.get("pageNum")==null?1:Integer.parseInt(map.get("pageNum").toString());
-        int pageSize = map.get("pageSize")==null?2:Integer.parseInt(map.get("pageSize").toString());
+        int pageSize = map.get("pageSize")==null?1:Integer.parseInt(map.get("pageSize").toString());
         // 设置当前页和每页记录数
         PageHelper.startPage(pageNum, pageSize);
         // 执行查询
@@ -53,14 +54,19 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public Admin selectWithRoleMapping(Integer id) {
-        return adminMapper.selectWithRoleMapping(id);
+    public boolean updateHeadPic(Admin admin) {
+        return adminMapper.updateHeadPic(admin)>0?true:false;
     }
 
     @Override
-    public Admin selectWithOperatorMapping(Integer id) {
-        return adminMapper.selectWithOperatorMapping(id);
+    public PageInfo<Admin> selectByPage(LayRequest layRequest) {
+        // 设置当前页和每页记录数
+        PageHelper.startPage(layRequest.getPage(), layRequest.getLimit());
+        // 执行查询
+        List<Admin> admins = adminMapper.selectByMap(layRequest.getParams());
+        // 创建PageInfo，并将返回结果传入
+        PageInfo<Admin> adminPageInfo = new PageInfo<>(admins);
+        return adminPageInfo;
     }
-
 
 }

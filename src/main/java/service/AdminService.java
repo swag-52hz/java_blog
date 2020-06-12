@@ -2,6 +2,7 @@ package service;
 
 import com.github.pagehelper.PageInfo;
 import entity.Admin;
+import entity.LayRequest;
 
 import java.util.Map;
 
@@ -24,9 +25,7 @@ public interface AdminService {
     // 修改
     boolean update(Admin admin);
 
-    // 与Role关联查询
-    Admin selectWithRoleMapping(Integer id);
+    boolean updateHeadPic(Admin admin);
 
-    // 与Operator关联查询
-    Admin selectWithOperatorMapping(Integer id);
+    PageInfo<Admin> selectByPage(LayRequest layRequest);
 }

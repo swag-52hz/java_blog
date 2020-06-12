@@ -27,7 +27,5 @@ public interface AdminMapper {
     // 多条件查询
     List<Admin> selectByMap(Map<String, Object> map);
 
-    Admin selectWithRoleMapping(Integer id);
-
-    Admin selectWithOperatorMapping(Integer id);
+    int updateHeadPic(Admin admin);
 }

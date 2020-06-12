@@ -18,7 +18,25 @@
     <select id="selectAll" resultType="entity.Role">
         select * from T_ROLE
     </select>
-    <select id="selectById" resultType="entity.Role">
+    <resultMap id="roleMap" type="entity.Role">
+        <id column="id" property="id"></id>
+        <result column="rolename" property="roleName"></result>
+        <result column="explain" property="explain"></result>
+        <result column="status" property="status"></result>
+        <result column="operator" property="operator"></result>
+        <result column="createtime" property="createTime"></result>
+        <result column="updatetime" property="updateTime"></result>
+        <!--集合对象配置-->
+        <!--column:传递的列值 select：关联查询-->
+        <collection property="resourceList" ofType="entity.Resource"
+                    column="id" select="selectByRoleId">
+        </collection>
+    </resultMap>
+    <select id="selectById" resultMap="roleMap">
         select * from T_ROLE where id=#{id}
+    </select>
+    <select id="selectByRoleId" resultType="entity.Resource">
+        select t1.* from T_RESOURCE t1,T_ROLE_RESOURCE t2
+        where t1.id=t2.MENUID and t2.ROLEID=#{roleid}
     </select>
 </mapper>

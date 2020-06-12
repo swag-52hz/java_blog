@@ -1,8 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <body>
-<h2>Hello World!</h2>
-<a href="/role/list">角色列表</a>
-<a href="/admin/toAdd">添加用户</a>
+<h2>hello,world</h2>
 </body>
 </html>

@@ -25,8 +25,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println("进入拦截器postHandler方法");
-        System.out.println("获取到控制层返回结果："+modelAndView.getModelMap());
-        System.out.println("view:"+modelAndView.getViewName());
+        if(modelAndView!=null) {
+            System.out.println("获取到控制层返回结果：" + modelAndView.getModelMap());
+            System.out.println("view:" + modelAndView.getViewName());
+        }
     }
 
     // 视图解析之后执行

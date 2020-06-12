@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,11 +14,27 @@ public class Admin implements Serializable {
     private String email;
     private String status;
     private String sex;
-    private String headPic;
+    private String headpic;
     private Integer roleid;
     private Integer operator;
+    // 配置日期类型转换成json的格式
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     private Date updateTime;
+
+    public Admin(){}
+
+    public Admin(Integer id) {
+        this.id = id;
+    }
+
+    public String getHeadpic() {
+        return headpic;
+    }
+
+    public void setHeadpic(String headpic) {
+        this.headpic = headpic;
+    }
 
 
     // 多对一
@@ -54,14 +72,6 @@ public class Admin implements Serializable {
 
     public Date getUpdateTime() {
         return updateTime;
-    }
-
-    public String getHeadPic() {
-        return headPic;
-    }
-
-    public void setHeadPic(String headPic) {
-        this.headPic = headPic;
     }
 
     public Integer getOperator() {

@@ -14,6 +14,9 @@
         update T_ADMIN account=#{account}, name=#{name}, phone=#{phone}, email=#{email},
         status=#{status}, sex=#{sex}, roleid=#{roleid}, operator=#{operator} where id=#{id}
     </update>
+    <update id="updateHeadPic">
+        update T_ADMIN set HEADPIC=#{headpic} where id=#{id}
+    </update>
     <delete id="delete">
         delete from T_ADMIN where id=#{id}
     </delete>
@@ -52,7 +55,9 @@
         <result column="status" property="status"></result>
         <result column="sex" property="sex"></result>
         <result column="operator" property="operator"></result>
+        <result column="headpic" property="headpic"></result>
         <result column="roleid" property="roleid"></result>
+        <result column="createtime" property="createTime"></result>
         <!--
             property配置属性
             column配置需要传递到另一个查询的列

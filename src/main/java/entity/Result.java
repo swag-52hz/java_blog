@@ -4,6 +4,7 @@ public class Result<T> {
     private int code;   // 状态码
     private String msg;     // 提示信息
     private T data; // 返回的数据
+    private long count;     // 总记录条数
 
     public Result(){}
 
@@ -20,6 +21,20 @@ public class Result<T> {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    public Result(int code, T data, long count) {
+        this.code = code;
+        this.data = data;
+        this.count = count;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 
     public int getCode() {

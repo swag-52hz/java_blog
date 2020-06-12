@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Role implements Serializable {
     private Integer id;
@@ -11,6 +12,16 @@ public class Role implements Serializable {
     private Integer operator;
     private Date updateTime;
     private Date createTime;
+    // 多对多
+    private List<Resource> resourceList;
+
+    public List<Resource> getResourceList() {
+        return resourceList;
+    }
+
+    public void setResourceList(List<Resource> resourceList) {
+        this.resourceList = resourceList;
+    }
 
     public Integer getId() {
         return id;

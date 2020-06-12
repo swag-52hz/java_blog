@@ -1,5 +1,6 @@
 package mapper;
 
+import entity.Resource;
 import entity.Role;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface RoleMapper {
 
     int update(Role role);
 
+    // 根据角色ID查询所有权限
+    List<Resource> selectByRoleId(Integer roleid);
 }
